@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Catalog_API.Data;
 using Catalog_API.Data.Interfaces;
+using Catalog_API.Repositories;
+using Catalog_API.Repositories.Interfaces;
 using Catalog_API.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,11 +32,16 @@ namespace Catalog_API
         {
             services.AddControllers();
 
+            /*////////////////////////////////////////////*/
+
             services.Configure<CatalogDatabaseSettings>(Configuration.GetSection(nameof(CatalogDatabaseSettings)));
-            services.AddSingleton<ICatalogDatabaseSettings>(sp => 
-                        sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
+
+            services.AddSingleton<ICatalogDatabaseSettings>(sp => sp.GetRequiredService<IOptions<CatalogDatabaseSettings>>().Value);
+
+            /*////////////////////////////////////////////*/
 
             services.AddTransient<ICatalogContext, CatalogContext>();
+            services.AddTransient<IProductRepository, ProductRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
