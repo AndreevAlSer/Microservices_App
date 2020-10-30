@@ -37,6 +37,12 @@ namespace Basket.API
 
             services.AddTransient<IBasketContext, BasketContext>();
             services.AddTransient<IBasketRepository, BasketRepository>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Basket API", Version = "v1" });
+            });
+
             services.AddControllers();
         }
 
@@ -56,6 +62,9 @@ namespace Basket.API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("swagger/v1/swagger.json", "Basket API V1"));
         }
     }
 }
