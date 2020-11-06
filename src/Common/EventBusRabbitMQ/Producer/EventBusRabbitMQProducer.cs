@@ -16,7 +16,7 @@ namespace EventBusRabbitMQ.Producer
             _connection = connection;
         }
 
-        private void PublishBasketCheckout(string queueName, BasketCheckoutEvent publishModel)
+        public void PublishBasketCheckout(string queueName, BasketCheckoutEvent publishModel)
         {
             using (var channel = _connection.CreateModel())
             {
