@@ -19,18 +19,10 @@ namespace Basket.API.Controllers
         private readonly IMapper _mapper;
         private readonly EventBusRabbitMQProducer _eventBus;
 
-        public BasketController(IBasketRepository repository, IMapper mapper, EventBusRabbitMQProducer eventBus) : this(repository, mapper)
+        public BasketController(IBasketRepository repository, IMapper mapper, EventBusRabbitMQProducer eventBus)
         {
             _eventBus = eventBus;
-        }
-
-        public BasketController(IBasketRepository repository, IMapper mapper) : this(repository)
-        {
             _mapper = mapper;
-        }
-
-        public BasketController(IBasketRepository repository)
-        {
             _repository = repository;
         }
 

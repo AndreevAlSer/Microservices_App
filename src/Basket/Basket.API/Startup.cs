@@ -8,6 +8,7 @@ using Basket.API.Data.Interfaces;
 using Basket.API.Repository;
 using Basket.API.Repository.Interfaces;
 using EventBusRabbitMQ;
+using EventBusRabbitMQ.Producer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +53,7 @@ namespace Basket.API
             {
                 var factory = new ConnectionFactory()
                 {
-                    HostName = Configuration["EvenBus:HostName"]
+                    HostName = Configuration["EventBus:HostName"]
                 };
 
                 if (!string.IsNullOrEmpty(Configuration["EventBus:UserName"]))
@@ -67,6 +68,8 @@ namespace Basket.API
 
                 return new RabbitMQConnection(factory);
             });
+
+            services.AddSingleton<EventBusRabbitMQProducer>();
 
             services.AddControllers();
         }
